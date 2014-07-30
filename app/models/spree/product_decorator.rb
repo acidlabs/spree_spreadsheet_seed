@@ -5,8 +5,9 @@ module Spree
       header = spreadsheet.row(1)
       (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
-        product = find_by(name: row["name"]) || new
-        product.attributes = { name: row["name"], description: row["description"] }
+        product = find_by(name: row["name"]).force_encoding("ISO-8859-1").encode("UTF-8") || new
+        product.attributes = { name: row["name"].force_encoding("ISO-8859-1").encode("UTF-8"), 
+                               description: row["description"].force_encoding("ISO-8859-1").encode("UTF-8") }
         
         #Shipping Category por default
         product.shipping_category_id = 1
