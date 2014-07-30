@@ -1,0 +1,7 @@
+<% if @image %>
+	$('#success').show();
+	$('#image_success').html(parseInt($('#image_success').html(), 10) + 1);
+<% else %>
+	$('#fail').show();
+	$('#image_failure').html(parseInt($('#image_failure').html(), 10) + 1)
+<% end %>

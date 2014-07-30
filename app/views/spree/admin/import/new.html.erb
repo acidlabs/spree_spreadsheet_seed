@@ -1,0 +1,20 @@
+<h2>Import Products</h2>
+<%= form_tag admin_import_index_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+<br>
+<h2>Import Photos</h2>
+
+<%= form_tag admin_import_image_path, id: 'new_image' do  %>
+  <%= file_field_tag :image, multiple: true %>
+<% end %>
+<br>
+
+<div id="success" class="<%#alert-box success"%>" style="display: none; background-color: #0b0; color: #fff; padding:5px;" data-alert>
+	Success: <span id="image_success">0</span> Images were loaded. <%# <a class="close" href="#">×</a> %>
+</div>
+<br>
+<div id="fail" class="<%#alert-box warning"%>" style="display: none;background-color: #f00;color: #fff; padding:5px;" data-alert>
+	Failure: <span id="image_failure">0</span> Images were not loaded. <%# <a class="close" href="#">×</a> %>
+</div>
