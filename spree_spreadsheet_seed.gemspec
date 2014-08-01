@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_spreadsheet_seed'
-  s.version     = '2.2.5'
+  s.version     = '2.2.6'
   s.summary     = 'Add products from excel spreadsheet'
   s.description = 'Add products from excel spreadsheet'
   s.required_ruby_version = '>= 1.9.3'
