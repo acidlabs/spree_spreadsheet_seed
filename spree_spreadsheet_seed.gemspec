@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.description = 'Add products from excel spreadsheet'
   s.required_ruby_version = '>= 1.9.3'
 
-   s.author    = 'Fel'
-  # s.email     = 'you@example.com'
+  s.author    = 'Fel'
+  s.email     = 'felipe@reuoutdoor.com'
   # s.homepage  = 'http://www.spreecommerce.com'
 
   #s.files = Dir["lib/**/*"] + Dir["app/**/**/**/*"] 

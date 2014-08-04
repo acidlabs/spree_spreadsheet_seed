@@ -6,9 +6,7 @@ module Spree
       end
     
       def create
-        Spree::Product.import(params[:file])
-        flash[:success] = "Products imported."
-        redirect_to admin_url
+        redirect_to new_admin_import_path, notice: Spree::Product.import(params[:file])
       end
   
       def image
