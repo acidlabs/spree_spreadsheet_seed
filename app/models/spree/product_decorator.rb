@@ -25,7 +25,7 @@ module Spree
         
           unless row["brand"].blank?
             brand = Spree::Taxon.find_or_create_by name: row["brand"] 
-            brand.parent = Spree::Taxon.find_or_create_by name: 'brand' unless brand.parent
+            brand.parent = Spree::Taxon.find_or_create_by name: 'Brand' unless brand.parent
           
             product.taxons << brand unless product.taxons.include? brand
           end
