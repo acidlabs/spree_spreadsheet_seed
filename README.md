@@ -11,6 +11,8 @@ Add spree_spreadsheet_seed and Roo to your Gemfile:
 ```ruby
 gem 'roo'
 gem 'spree_spreadsheet_seed'
+gem 'jquery-fileupload-rails'
+
 ```
 
 Add dependencies in vendor/assets/spree/backend/all.js:
