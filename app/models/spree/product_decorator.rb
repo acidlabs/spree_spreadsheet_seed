@@ -2,14 +2,18 @@ module Spree
   Product.class_eval do
     def self.import(file)
       column_errors = []
+      not_taxonomies = ["name", "description", "price", "deleted", "prototype"]
+      
       spreadsheet = open_spreadsheet(file)
       header = spreadsheet.row(1)
+      
+      taxonomies = header.map(&:downcase) - not_taxonomies
+      
       (2..spreadsheet.last_row).each do |i|
         begin 
           row = Hash[[header, spreadsheet.row(i)].transpose]
-          product = find_by(name: row["name"]) || new
-          product.attributes = { name: row["name"], 
-                                  description: row["description"] }
+          product = find_or_create_by(name: row["name"].strip.split.map(&:capitalize)*' ')
+          product.attributes = { description: row["description"] }
         
           #Shipping Category por default
           product.shipping_category_id = 1
@@ -22,19 +26,28 @@ module Spree
         
           #Producto aparecerá borrado?
           product.delete if row["deleted"] == 1
-        
-          unless row["brand"].blank?
-            brand = Spree::Taxon.find_or_create_by name: row["brand"] 
-            brand.parent = Spree::Taxon.find_or_create_by name: 'Brand' unless brand.parent
           
-            product.taxons << brand unless product.taxons.include? brand
+          product.prototype_id = Spree::Prototype.find_or_create_by(name: row["prototype"].strip.mb_chars.capitalize.to_s).id if row["prototype"]
+          
+          taxonomies.each do |taxonomy_name|
+            taxonomy = Spree::Taxonomy.find_or_create_by(name: taxonomy_name.strip.mb_chars.capitalize.to_s)
+            
+            unless row[taxonomy_name].blank?
+              row[taxonomy_name].split('/').each do |taxon_name|
+                taxon = Spree::Taxon.find_or_create_by name: taxon_name.strip.mb_chars.capitalize.to_s  
+                taxon.parent = taxonomy.root unless taxon.parent
+                taxon.save!
+                
+                product.taxons << taxon unless product.taxons.include? taxon
+              end
+            end
           end
           
           product.save! 
-                    
-        rescue 
-          column_errors << i
-        end       
+        rescue
+           column_errors << i
+        end 
+      
       end
       column_errors
     end
@@ -47,5 +60,6 @@ module Spree
       else raise "Unknown file type: #{file.original_filename}"
       end  
     end
+    
   end
 end
