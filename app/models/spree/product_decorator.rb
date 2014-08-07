@@ -2,7 +2,7 @@ module Spree
   Product.class_eval do
     def self.import(file)
       column_errors = []
-      not_taxonomies = ["name", "description", "price", "deleted", "prototype"]
+      not_taxonomies = ["name", "description", "price", "deleted", "prototype", "web"]
       
       spreadsheet = open_spreadsheet(file)
       header = spreadsheet.row(1)
