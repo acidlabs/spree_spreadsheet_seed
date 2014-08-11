@@ -1,5 +1,5 @@
 jQuery ->
-	if $('#new_image').lenght
+	if $('#new_image').length
 	  $('#new_image').fileupload()
 	    dataType: "script"
 	    add: (e, data) ->

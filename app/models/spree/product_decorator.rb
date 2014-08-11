@@ -43,8 +43,8 @@ module Spree
           end
           
           product.save! 
-        rescue
-           column_errors << i
+        # rescue
+        #    column_errors << i
         end 
       
       end
