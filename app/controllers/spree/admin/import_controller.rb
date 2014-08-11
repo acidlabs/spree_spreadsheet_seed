@@ -11,7 +11,7 @@ module Spree
   
       def image
         filename = File.basename(params[:image].original_filename, '.*')
-        product = Spree::Product.find_by(name: filename)
+        product = Spree::Product.find_by(name: filename.strip.split.map(&:capitalize)*' ')
 
         @image = Spree::Image.create(attachment: File.open(params[:image].path), :viewable => product.master) if product
       end
