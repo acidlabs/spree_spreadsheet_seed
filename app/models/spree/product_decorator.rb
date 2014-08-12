@@ -35,6 +35,7 @@ module Spree
               row[taxonomy_name].split('/').each do |taxon_name|
                 taxon = Spree::Taxon.find_or_create_by name: taxon_name.strip.mb_chars.capitalize.to_s  
                 taxon.parent = taxonomy.root unless taxon.parent
+                taxon.taxonomy = taxonomy unless taxon.taxonomy
                 taxon.save!
                 
                 product.taxons << taxon unless product.taxons.include? taxon
