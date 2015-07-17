@@ -1,6 +1,12 @@
 SpreeSpreadsheetSeed
 ====================
 
+----
+
+**WARNING**: This branch is unstable, do not use it in production.
+
+----
+
 Introduction goes here.
 
 Installation
